@@ -7,9 +7,6 @@ import requests
 from pyaes import AESModeOfOperationCBC
 from requests import Session as req_Session
 from requests import post
-import rsa
-import base64
-import hashlib
 import sys
 
 sys.path.append('.')
