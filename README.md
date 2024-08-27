@@ -23,6 +23,6 @@ py自己上传到对应目录即可，默认用的/root/
 
 [或者把python3的路径也加上]
 
-# 参考资料
+# 优化自
 
 https://github.com/BlueSkyXN/Hostloc-Checkin
