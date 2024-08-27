@@ -18,12 +18,13 @@ except:
     pass
 from urllib import parse
 
-result = '🏆HOSTLOC签到姬🏆\n'
+result = '🏆HOSTLOC签到🏆\n'
 
 TGBOTAPI = config.TGBOTAPI
 TGID = config.TGID
 username = config.username
 password = config.password
+
 
 # 【username】格式为ac1,ac2,ac3
 # 【password】格式为pw1,pw2,pw3
@@ -170,6 +171,7 @@ def print_current_points(s: req_Session):
 
     if len(points) != 0:  # 确保正则匹配到了内容，防止出现数组索引越界的情况
         print("帐户当前积分：" + points[0])
+        result += '帐户当前积分：'+points[0]+'\n'
     else:
         print("无法获取帐户积分，可能页面存在错误或者未登录！")
         result += "无法获取帐户积分，可能页面存在错误或者未登录！"
@@ -243,6 +245,7 @@ def main():
                 s = login(user_list[i], passwd_list[i])
                 get_points(s, i + 1)
                 print("*" * 30)
+                result += '用户名：'+user_list[i]+'\n'
             except Exception as e:
                 print("程序执行异常：" + str(e))
                 result += "签到异常!"
