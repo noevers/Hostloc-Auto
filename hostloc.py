@@ -8,6 +8,7 @@ from pyaes import AESModeOfOperationCBC
 from requests import Session as req_Session
 from requests import post
 import sys
+import config
 
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
@@ -19,10 +20,10 @@ from urllib import parse
 
 result = '🏆HOSTLOC签到姬🏆\n'
 
-TGBOTAPI = os.environ.get("TGBOTAPI")
-TGID = os.environ.get("TGID")
-username = os.environ.get("username")
-password = os.environ.get("password")
+TGBOTAPI = config.TGBOTAPI
+TGID = config.TGID
+username = config.username
+password = config.password
 
 # 【username】格式为ac1,ac2,ac3
 # 【password】格式为pw1,pw2,pw3
