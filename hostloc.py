@@ -9,6 +9,8 @@ from requests import Session as req_Session
 from requests import post
 import sys
 import config
+from fake_useragent import UserAgent
+
 
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
@@ -24,6 +26,9 @@ TGBOTAPI = config.TGBOTAPI
 TGID = config.TGID
 username = config.username
 password = config.password
+
+ua = UserAgent(min_version=120.0)
+user_agent = ua.random
 
 
 # 【username】格式为ac1,ac2,ac3
@@ -63,7 +68,7 @@ def check_anti_cc() -> dict:
     global result
     result_dict = {}
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36"
+        "user-agent": user_agent
     }
     home_page = "https://hostloc.com/forum.php"
     res = requests.get(home_page, headers=headers)
@@ -117,7 +122,7 @@ def gen_anti_cc_cookies() -> dict:
 # 登录帐户
 def login(username: str, password: str) -> req_Session:
     headers = {
-        "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36",
+        "user-agent": user_agent,
         "origin": "https://hostloc.com",
         "referer": "https://hostloc.com/forum.php",
     }
@@ -209,6 +214,7 @@ def print_my_ip():
         res.raise_for_status()
         res.encoding = "utf-8"
         print("当前使用 ip 地址：" + res.text)
+        result += '当前服务器IP：'+ res.text+'\n'
     except Exception as e:
         print("获取当前 ip 地址失败：" + str(e))
 
@@ -242,10 +248,10 @@ def main():
         # 依次登录帐户获取积分，出现错误时不中断程序继续尝试下一个帐户
         for i in range(len(user_list)):
             try:
+                result += '用户名：'+user_list[i]+'\n'
                 s = login(user_list[i], passwd_list[i])
                 get_points(s, i + 1)
                 print("*" * 30)
-                result += '用户名：'+user_list[i]+'\n'
             except Exception as e:
                 print("程序执行异常：" + str(e))
                 result += "签到异常!"
