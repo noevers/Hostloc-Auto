@@ -27,9 +27,10 @@ TGID = config.TGID
 username = config.username
 password = config.password
 
-ua = UserAgent(min_version=120.0)
+ua = UserAgent(min_version=110.0,os='windows')
 user_agent = ua.random
 
+print('获取UA:'+user_agent)
 
 # 【username】格式为ac1,ac2,ac3
 # 【password】格式为pw1,pw2,pw3
@@ -208,13 +209,15 @@ def get_points(s: req_Session, number_c: int):
 
 # 打印输出当前ip地址
 def print_my_ip():
+    global result
     api_url = "https://api.ipify.org/"
     try:
         res = requests.get(url=api_url)
         res.raise_for_status()
         res.encoding = "utf-8"
-        print("当前使用 ip 地址：" + res.text)
-        result += '当前服务器IP：'+ res.text+'\n'
+        ip_address = res.text
+        print("当前使用 ip 地址：" + ip_address)
+        result += '当前服务器IP：'+ ip_address +'\n'
     except Exception as e:
         print("获取当前 ip 地址失败：" + str(e))
 
